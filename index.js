@@ -47,6 +47,10 @@ zomato.use("/menuimage", MenuImage);
 zomato.use("/review", Review);
 zomato.use("/order", Order);
 
+zomato.get('/', (req, res) => {
+    return res.json({ message: 'yay!' });
+})
+
 zomato.listen(process.env.PORT || '5000' , () => {
     if (ConnectDb()) {
         console.log("Server is running and connected!");
