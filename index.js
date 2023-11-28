@@ -47,7 +47,7 @@ zomato.use("/menuimage", MenuImage);
 zomato.use("/review", Review);
 zomato.use("/order", Order);
 
-zomato.listen(process.env.PORT , () => {
+zomato.listen(process.env.PORT || '3001' , () => {
     if (ConnectDb()) {
         console.log("Server is running and connected!");
     } else {
