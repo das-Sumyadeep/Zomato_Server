@@ -69,10 +69,15 @@ Router.post("/signin", async (req, res) => {
 
 Router.get("/login/success", passport.authenticate("jwt", { session: false }), (req, res) => {
 
-    return res.status(200).json({
-        message: "User Authenticated",
-        user: req.user
-    });
+    try {
+
+        return res.status(200).json({
+            message: "User Authenticated",
+            user: req.user
+        });
+    } catch (err) {
+        return res.status(500).json({ error: "Internal server Error" });
+    }
 });
 
 Router.get('/logout', (req, res) => {
