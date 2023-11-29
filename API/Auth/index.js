@@ -80,7 +80,7 @@ Router.get('/logout', (req, res) => {
     
     req.logout();
     res.clearCookie('jwt');
-    res.redirect(process.env.BASE_URL);
+    res.redirect('https://only-zomato-master.netlify.app);
     
 });
 
@@ -89,14 +89,14 @@ Router.get("/google", passport.authenticate('google', {
 }));
 
 
-Router.get('/google/callback', passport.authenticate('google', { failureRedirect: process.env.BASE_URL }),
+Router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'https://only-zomato-master.netlify.app' }),
     (req, res) => {
 
         try {
 
             if (req.user && req.user.token) {
                 res.cookie('jwt', req.user.token, { httpOnly: false, maxAge: 24 * 60 * 60, secure: true });
-                res.redirect(process.env.BASE_URL);
+                res.redirect('https://only-zomato-master.netlify.app');
 
             }
         } catch (err) {
