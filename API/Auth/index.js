@@ -20,8 +20,8 @@ Router.post("/signup", async (req, res) => {
         // await UserModel.checkEmail(formData);
         const checkUserByEmail = await UserModel.findOne({formData.email});
 
-        if(!checkUserByEmail){
-            return res.status(401).json({ message: "User Doesnot Exist" });
+        if(checkUserByEmail){
+            return res.status(401).json({ message: "User already Exists" });
         }    
         // storing data to the database
         const UserData = await UserModel.create(formData);
@@ -50,7 +50,7 @@ Router.post("/signin", async (req, res) => {
 
         const UserExist = await UserModel.findOne({ email });
         if (!UserExist) {
-            return res.json({ message: "Invalid Credentials" });
+            return res.json({ message: "User Doesnot Exist" });
         }
 
         const checkPassword = await bcrypt.compare(password, UserExist.password);
