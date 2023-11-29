@@ -80,7 +80,7 @@ Router.get('/logout', (req, res) => {
     
     req.logout();
     res.clearCookie('jwt');
-    res.redirect('https://only-zomato-master.netlify.app);
+    res.redirect('https://only-zomato-master.netlify.app');
     
 });
 
