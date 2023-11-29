@@ -78,7 +78,7 @@ Router.get("/login/success", passport.authenticate("jwt", { session: false }), (
 
 Router.get('/logout', (req, res) => {
     
-    req.logout();
+    req.logOut();
     res.clearCookie('jwt');
     res.redirect('https://only-zomato-master.netlify.app');
     
