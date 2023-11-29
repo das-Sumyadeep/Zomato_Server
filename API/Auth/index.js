@@ -22,14 +22,15 @@ Router.post("/signup", async (req, res) => {
         // storing data to the database
         const UserData = await UserModel.create(formData);
 
-        if (UserData) {
+        if (!UserData) {
+            return res.status(401).json({ message: "Invalid Credentials" })
+        }else{
+            
             return res.status(200).json({
                 message: "Successfully Created",
             });
-        } else {
-            return res.status(401).json({ message: "Invalid Credentials" })
         }
-
+        
     } catch (error) {
 
         return res.status(500).json({ error: error.message });
@@ -50,16 +51,18 @@ Router.post("/signin", async (req, res) => {
 
         const checkPassword = await bcrypt.compare(password, UserExist.password);
 
-        if (checkPassword) {
-            const token = await UserExist.generateJwt();
-            // console.log(token);
-            return res.status(200).json({
-                message: "User Authenticated",
-                user: UserExist,
-                token: token
-            });
-        }
-        return res.json({ message: "Invalid Credentials" });
+        if (!checkPassword) {
+            
+            return res.json({ message: "Invalid Credentials" });
+        }else{
+                const token = await UserExist.generateJwt();
+                // console.log(token);
+                return res.status(200).json({
+                    message: "User Authenticated",
+                    user: UserExist,
+                    token: token
+                });
+            }
 
     } catch (error) {
 
