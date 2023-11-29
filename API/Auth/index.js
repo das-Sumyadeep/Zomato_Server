@@ -67,11 +67,12 @@ Router.post("/signin", async (req, res) => {
 });
 
 
-Router.get("/login/success", passport.authenticate("jwt", { session: false }), (req, res) => {
+Router.get("/login/success", (req, res) => {
 
     return res.status(200).json({
         message: "User Authenticated",
-        user: req.user
+        user: req.user,
+        token: req.user.token
     });
   
 });
@@ -94,11 +95,11 @@ Router.get('/google/callback', passport.authenticate('google', { failureRedirect
 
         try {
 
-            if (req.user && req.user.token) {
-                res.cookie('jwt', req.user.token, { httpOnly: false, maxAge: 24 * 60 * 60, secure: false });
+            // if (req.user && req.user.token) {
+            //     res.cookie('jwt', req.user.token, { httpOnly: false, maxAge: 24 * 60 * 60, secure: false });
                 res.redirect('http://localhost:3000');
 
-            }
+            // }
         } catch (err) {
             return res.status(500).json({ error: "Internal server Error" });
         }
