@@ -13,12 +13,12 @@ const Router = express.Router();
 Router.post("/signup", async (req, res) => {
     try {
         const formData = req.body;
-        
+        console.log(formData);
         // const ValidData = await ValidationSignUp(req.body);
 
         // calling static function using the model
         // await UserModel.checkEmail(formData);
-        const checkUserByEmail = await UserModel.findOne({formData.email});
+        const checkUserByEmail = await UserModel.findOne({email});
 
         if(checkUserByEmail){
             return res.status(401).json({ message: "User already Exists" });
