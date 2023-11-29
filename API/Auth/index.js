@@ -13,7 +13,8 @@ const Router = express.Router();
 Router.post("/signup", async (req, res) => {
     try {
         const formData = req.body;
-        console.log(formData);
+        // console.log(formData);
+        const {email} = formData;
         // const ValidData = await ValidationSignUp(req.body);
 
         // calling static function using the model
@@ -26,14 +27,14 @@ Router.post("/signup", async (req, res) => {
         // storing data to the database
         const UserData = await UserModel.create(formData);
 
-        if (!UserData) {
-            return res.status(401).json({ message: "Invalid Credentials" });
-        }else{
+        if (UserData) {
             
             return res.status(200).json({
                 message: "Successfully Created",
             });
         }
+        return res.status(401).json({ message: "Invalid Credentials" });
+        
         
     } catch (error) {
 
@@ -57,8 +58,6 @@ Router.post("/signin", async (req, res) => {
 
         if (!checkPassword) {
             
-            return res.json({ message: "Invalid Credentials" });
-        }else{
                 const token = await UserExist.generateJwt();
                 // console.log(token);
                 return res.status(200).json({
@@ -66,7 +65,9 @@ Router.post("/signin", async (req, res) => {
                     user: UserExist,
                     token: token
                 });
-            }
+        }
+        return res.json({ message: "Invalid Credentials" });
+            
 
     } catch (error) {
 
