@@ -86,7 +86,7 @@ Router.get('/logout', (req, res) => {
     
     // req.logOut();
     res.clearCookie('jwt');
-    res.redirect('https://zomatoserver-ujku.onrender.com');
+    res.redirect('https://only-zomato-master.netlify.app');
     
 });
 
@@ -95,14 +95,14 @@ Router.get("/google", passport.authenticate('google', {
 }));
 
 
-Router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'https://zomatoserver-ujku.onrender.com' }),
+Router.get('/google/callback', passport.authenticate('google', { failureRedirect: 'https://only-zomato-master.netlify.app' }),
     (req, res) => {
 
         try {
 
             if (req.user && req.user.token) {
                 res.cookie('jwt', req.user.token, { httpOnly: false, maxAge: 24 * 60 * 60, secure: false });
-                res.redirect('https://zomatoserver-ujku.onrender.com');
+                res.redirect('https://only-zomato-master.netlify.app');
 
             }
         } catch (err) {
