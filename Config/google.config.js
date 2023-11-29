@@ -10,7 +10,7 @@ module.exports = (passport) => {
         new GoogleStrategy({
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: 'https://zomatoserver-ujku.onrender.com/auth/google/callback',
+            callbackURL: process.env.GOOGLE_CALLBACK_URL,
             
         },
             async (accessToken, refreshToken, profile, done) => {
