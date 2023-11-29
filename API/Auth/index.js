@@ -17,13 +17,17 @@ Router.post("/signup", async (req, res) => {
         // const ValidData = await ValidationSignUp(req.body);
 
         // calling static function using the model
-        await UserModel.checkEmail(formData);
+        // await UserModel.checkEmail(formData);
+        const checkUserByEmail = await UserModel.findOne({formData.email});
 
+        if(!checkUserByEmail){
+            return res.status(401).json({ message: "User Doesnot Exist" });
+        }    
         // storing data to the database
         const UserData = await UserModel.create(formData);
 
         if (!UserData) {
-            return res.status(401).json({ message: "Invalid Credentials" })
+            return res.status(401).json({ message: "Invalid Credentials" });
         }else{
             
             return res.status(200).json({
