@@ -22,7 +22,7 @@ Router.post("/signup", async (req, res) => {
         const checkUserByEmail = await UserModel.findOne({email});
 
         if(checkUserByEmail){
-            return res.status(401).json({ message: "User already Exists" });
+            return res.json({ message: "User already Exists" });
         }    
         // storing data to the database
         const UserData = await UserModel.create(formData);
@@ -33,7 +33,7 @@ Router.post("/signup", async (req, res) => {
                 message: "Successfully Created",
             });
         }
-        return res.status(401).json({ message: "Invalid Credentials" });
+        return res.json({ message: "Invalid Credentials" });
         
         
     } catch (error) {
@@ -51,7 +51,7 @@ Router.post("/signin", async (req, res) => {
 
         const UserExist = await UserModel.findOne({ email });
         if (!UserExist) {
-            return res.status(401).json({ message: "User Doesnot Exist" });
+            return res.json({ message: "User Doesnot Exist" });
         }
 
         const checkPassword = await bcrypt.compare(password, UserExist.password);
@@ -66,7 +66,7 @@ Router.post("/signin", async (req, res) => {
                     token: token
                 });
         }
-        return res.status(401).json({ message: "Invalid Credentials" });
+        return res.json({ message: "Invalid Credentials" });
             
 
     } catch (error) {
