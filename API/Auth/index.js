@@ -12,7 +12,7 @@ const Router = express.Router();
 
 Router.post("/signup", async (req, res) => {
     try {
-        const { formData } = req.body;
+        const formData = req.body;
         
         // const ValidData = await ValidationSignUp(req.body);
 
