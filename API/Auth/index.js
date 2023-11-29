@@ -84,7 +84,7 @@ Router.get('/logout', (req, res) => {
 
         req.logout();
         res.clearCookie('jwt');
-        res.redirect('https://only-zomato-master.netlify.app');
+        res.redirect(process.env.BASE_URL);
     } catch (err) {
         return res.status(500).json({ error: "Internal server Error" });
     }
