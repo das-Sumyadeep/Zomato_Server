@@ -13,9 +13,9 @@ const Router = express.Router();
 Router.post("/signup", async (req, res) => {
     try {
         const formData = req.body;
+        const ValidData = await ValidationSignUp(formData);
         // console.log(formData);
-        const {email} = formData;
-        // const ValidData = await ValidationSignUp(req.body);
+        const {email} = ValidData;
 
         // calling static function using the model
         // await UserModel.checkEmail(formData);
@@ -25,7 +25,7 @@ Router.post("/signup", async (req, res) => {
             return res.status(401).json({ message: "User already Exists" });
         }    
         // storing data to the database
-        const UserData = await UserModel.create(formData);
+        const UserData = await UserModel.create(ValidData);
 
         if (UserData) {
             
