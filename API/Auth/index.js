@@ -12,14 +12,15 @@ const Router = express.Router();
 
 Router.post("/signup", async (req, res) => {
     try {
-
-        const ValidData = await ValidationSignUp(req.body);
+        const { formData } = req.body;
+        
+        // const ValidData = await ValidationSignUp(req.body);
 
         // calling static function using the model
-        await UserModel.checkEmail(ValidData);
+        await UserModel.checkEmail(formData);
 
         // storing data to the database
-        const UserData = await UserModel.create(ValidData);
+        const UserData = await UserModel.create(formData);
 
         if (UserData) {
             return res.status(200).json({
