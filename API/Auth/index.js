@@ -82,7 +82,7 @@ Router.get("/login/success", passport.authenticate("jwt", { session: false }), (
     }    
 });
 
-Router.get('/logout', passport.authenticate("jwt", { session: false }), (req, res) => {
+Router.get('/logout', (req, res) => {
     
     // req.logOut();
     // res.clearCookie('jwt');
