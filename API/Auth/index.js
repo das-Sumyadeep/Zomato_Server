@@ -68,13 +68,19 @@ Router.post("/signin", async (req, res) => {
 
 
 Router.get("/login/success", (req, res) => {
-
-    return res.status(200).json({
-        message: "User Authenticated",
-        user: req.user,
-        token: req.user.token
-    });
-  
+    try{
+        
+        if(req.user){
+        
+            return res.status(200).json({
+                message: "User Authenticated",
+                user: req.user,
+                token: req.user.token
+            });
+        }
+    }catch (error){
+        return res.status(500).json({ error: error.message });
+    }    
 });
 
 Router.get('/logout', (req, res) => {
