@@ -51,12 +51,12 @@ Router.post("/signin", async (req, res) => {
 
         const UserExist = await UserModel.findOne({ email });
         if (!UserExist) {
-            return res.json({ message: "User Doesnot Exist" });
+            return res.status(401).json({ message: "User Doesnot Exist" });
         }
 
         const checkPassword = await bcrypt.compare(password, UserExist.password);
 
-        if (!checkPassword) {
+        if (checkPassword) {
             
                 const token = await UserExist.generateJwt();
                 // console.log(token);
@@ -66,7 +66,7 @@ Router.post("/signin", async (req, res) => {
                     token: token
                 });
         }
-        return res.json({ message: "Invalid Credentials" });
+        return res.status(401).json({ message: "Invalid Credentials" });
             
 
     } catch (error) {
