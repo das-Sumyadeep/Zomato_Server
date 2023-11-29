@@ -69,25 +69,19 @@ Router.post("/signin", async (req, res) => {
 
 Router.get("/login/success", passport.authenticate("jwt", { session: false }), (req, res) => {
 
-    try {
-        return res.status(200).json({
-            message: "User Authenticated",
-            user: req.user
-        });
-    } catch (err) {
-        return res.status(500).json({ error: "Internal server Error" });
-    }
+    return res.status(200).json({
+        message: "User Authenticated",
+        user: req.user
+    });
+  
 });
 
 Router.get('/logout', (req, res) => {
-    try {
-
-        req.logout();
-        res.clearCookie('jwt');
-        res.redirect(process.env.BASE_URL);
-    } catch (err) {
-        return res.status(500).json({ error: "Internal server Error" });
-    }
+    
+    req.logout();
+    res.clearCookie('jwt');
+    res.redirect(process.env.BASE_URL);
+    
 });
 
 Router.get("/google", passport.authenticate('google', {
