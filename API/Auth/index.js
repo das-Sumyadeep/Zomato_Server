@@ -99,9 +99,8 @@ Router.get('/google/callback', passport.authenticate('google', { failureRedirect
     (req, res) => {
 
         try {
-
             if (req.user && req.user.token) {
-                console.log('google login');
+                console.log("google login");
                 res.cookie('jwt', req.user.token, { httpOnly: false, maxAge: 24 * 60 * 60, secure: false });
                 res.redirect('https://only-zomato-master.netlify.app');
 
