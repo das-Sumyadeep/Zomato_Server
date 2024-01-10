@@ -86,8 +86,9 @@ Router.get("/login/success", passport.authenticate("jwt", { session: false }), (
                 user: req.user
             });
         }else{
-            return res.status(404).json({
-                message: "Unauthorized User"});
+            return res.json({
+                message: "Unauthorized User"
+            });
         }
     }catch (error){
         return res.status(500).json({ error: error.message });
